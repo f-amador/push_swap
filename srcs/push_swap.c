@@ -28,7 +28,7 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
-	size_t	s1l;	
+	size_t	s1l;
 	char	*str;
 
 	i = 0;
@@ -77,12 +77,12 @@ int	ft_checker(char *str)
 	while (str[i])
 	{
 		if (!((str[i] >= '0' && str[i] <= '9') 
-					|| str[i] == 32 || str[i] == 45))
+			|| str[i] == 32 || str[i] == 45))
 			return (0);
-		else
-		{
+			else
+			{
 			if (str[i] == 32)
-				n++;
+			n++;
 			i++;
 		}
 	}
@@ -94,7 +94,7 @@ t_list 	*ft_lastnode(t_list	**ahead)
 	t_list	*node;
 
 	if (!(*ahead))
-		return (NULL);
+	return (NULL);
 	node = *ahead;
 	while (node->next != *ahead)
 		node = node->next;
@@ -108,7 +108,7 @@ int ft_listcount(t_list *ahead)
 
 	res = 1;
 	if (!ahead)
-		return (0);
+	return (0);
 	tmp = ahead;
 	while(tmp->next != NULL)
 	{
@@ -125,7 +125,7 @@ void ft_stackadd(int res, t_list **ahead)
 
 	new_node = (t_list *)malloc(sizeof(t_list));
 	if (!new_node)
-		return ;
+	return ;
 	new_node->content = res;
 	new_node->bestfriend = NULL;
 	new_node->next = NULL;
@@ -152,7 +152,7 @@ int	ft_checkdup(t_list *ahead)
 	t_list	*check;
 
 	if (ahead == NULL)
-		return (0);
+	return (0);
 
 	current = ahead;
 	while (1)
@@ -161,14 +161,14 @@ int	ft_checkdup(t_list *ahead)
 		while (check != NULL)
 		{
 			if (current->content == check->content)
-				return (1);
+			return (1);
 			check = check->next;
 			if (check == ahead)
-				break;
+			break;
 		}
 		current = current->next;
 		if (current == NULL)
-			break;
+		break;
 	}
 	return (0);
 }
@@ -179,7 +179,7 @@ int ft_rrx(t_list **ahead, int i)
 	t_list *secondlastnode;
 
 	if (ahead == NULL || *ahead == NULL || (*ahead)->next == NULL)
-		return 0;
+	return 0;
 
 	lastnode = *ahead;
 	while (lastnode->next != NULL)
@@ -192,36 +192,39 @@ int ft_rrx(t_list **ahead, int i)
 	lastnode->next = *ahead;
 	(*ahead)->prev = lastnode;
 	*ahead = lastnode;
-	if (i)
+	if (i == 1)
 		return (write(1, "rra\n", 4));
-	return (write(1, "rrb\n", 4));
+	else if (i == 0)
+		return (write(1, "rrb\n", 4));
+	else
+	return (0);
 }
 int ft_px(t_list **src, t_list **dest, int i)
 {
-    t_list *tmp;
-    t_list *last;
+	t_list *tmp;
+	t_list *last;
 
-    tmp = *src;
-    *src = (*src)->next;
-    if (*src != NULL)
-        (*src)->prev = tmp->prev;
-    tmp->next = *dest;
-    if (*dest != NULL)
+	tmp = *src;
+	*src = (*src)->next;
+	if (*src != NULL)
+		(*src)->prev = tmp->prev;
+	tmp->next = *dest;
+	if (*dest != NULL)
 	{
-        last = (*dest)->prev;
-        tmp->prev = last;
-        (*dest)->prev = tmp;
-        if (last != NULL)
-            last->next = NULL;
-    } 
+		last = (*dest)->prev;
+		tmp->prev = last;
+		(*dest)->prev = tmp;
+		if (last != NULL)
+			last->next = NULL;
+	}
 	else 
 	{
-        tmp->prev = tmp;
-    }
-    *dest = tmp;
-    if (i)
-        return (write(1, "pa\n", 3));
-    return (write(1, "pb\n", 3));
+		tmp->prev = tmp;
+	}
+	*dest = tmp;
+	if (i)
+		return (write(1, "pa\n", 3));
+	return (write(1, "pb\n", 3));
 }
 int ft_rx(t_list **ahead, int i)
 {
@@ -229,7 +232,7 @@ int ft_rx(t_list **ahead, int i)
 	t_list *lastnode;
 
 	if (ahead == NULL || *ahead == NULL || (*ahead)->next == NULL)
-		return 0;
+	return 0;
 	firstnode = *ahead;
 	*ahead = (*ahead)->next;
 	(*ahead)->prev = NULL;
@@ -241,38 +244,42 @@ int ft_rx(t_list **ahead, int i)
 	firstnode->prev = lastnode;
 	firstnode->next = NULL;
 	(*ahead)->prev = firstnode;
-	if (i)
+	if (i == 1)
 		return (write(1, "ra\n", 3));
-	return (write(1, "rb\n", 3));
+	else if (i == 0)
+		return (write(1, "rb\n", 3));
+	else
+		return (0);
+
 }
 int	ft_sx(t_list **ahead, int i)
 {
-    t_list *firstnode, *secondnode, *lastnode;
+	t_list *firstnode, *secondnode, *lastnode;
 
-    if (ahead == NULL || *ahead == NULL || (*ahead)->next == NULL)
-        return (0);
-    firstnode = *ahead;
-    secondnode = (*ahead)->next;
-    lastnode = firstnode->prev; // Save the last node of the list
-
-    firstnode->next = secondnode->next;
-    if (secondnode->next != NULL)
-        secondnode->next->prev = firstnode;
-    secondnode->next = firstnode;
-    firstnode->prev = secondnode;
-
-    *ahead = secondnode;
-    (*ahead)->prev = lastnode; // Set the prev pointer of the new head to the last node
-    if (lastnode != NULL)
-        lastnode->next = NULL; // Set the next pointer of the last node to NULL
-
-    if (i)
-        return (write(1, "sa\n", 3));
-    return (write(1, "sb\n", 3));
+	if (ahead == NULL || *ahead == NULL || (*ahead)->next == NULL)
+		return (0);
+	firstnode = *ahead;
+	secondnode = (*ahead)->next;
+	lastnode = firstnode->prev; 
+	firstnode->next = secondnode->next;
+	if (secondnode->next != NULL)
+		secondnode->next->prev = firstnode;
+	secondnode->next = firstnode;
+	firstnode->prev = secondnode;
+	*ahead = secondnode;
+	(*ahead)->prev = lastnode; 
+	if (lastnode != NULL)
+		lastnode->next = NULL; 
+	if (i == 1)
+		return (write(1, "sa\n", 3));
+	else if (!i)
+		return (write(1, "sb\n", 3));
+	return (0);
 }
 int ft_ss(t_list **ahead, t_list **bhead)
 {
-	return (ft_sx(ahead, 1) + ft_sx(bhead, 0));
+	write(1, "ss\n", 3);
+	return (ft_sx(ahead, 2) + ft_sx(bhead, 2));
 }
 
 void ft_clearlst(t_list **ahead)
@@ -281,7 +288,7 @@ void ft_clearlst(t_list **ahead)
 	t_list *next_node;
 
 	if (ahead == NULL || *ahead == NULL)
-		return;
+	return;
 
 	tmp = *ahead;
 	while (tmp != NULL)
@@ -305,7 +312,7 @@ void	ft_atol(char *line, t_list **ahead)
 		res = 0;
 		sig = 1;
 		if (line[i] == 32)
-			i++;
+		i++;
 		if (line[i] == 45)
 		{
 			sig = -1;
@@ -330,11 +337,11 @@ int	ft_sort3(t_list **ahead, t_list *node2, t_list *node3)
 		{	
 			if ((*ahead)->content < node3->content)
 				return (ft_sx(ahead, 1));
-			else
-				return (ft_rx(ahead, 1));
+				else
+			return (ft_rx(ahead, 1));
 		}
 		else 
-			return (ft_sx(ahead, 1), ft_rrx(ahead, 1));
+		return (ft_sx(ahead, 1), ft_rrx(ahead, 1));
 	}
 	else 
 	{
@@ -342,8 +349,8 @@ int	ft_sort3(t_list **ahead, t_list *node2, t_list *node3)
 		{
 			if ((*ahead)->content < node3->content)
 				return (ft_sx(ahead, 1), ft_rx(ahead, 1));
-			else 
-				return (ft_rrx(ahead, 1));
+				else 
+			return (ft_rrx(ahead, 1));
 		}
 	}
 	return (1);
@@ -364,21 +371,6 @@ float ft_nodesum(t_list **ahead)
 	return res;
 }
 
-void update_indices(t_list **head)
-{
-	t_list *node;
-	int index;
-
-	index = 0;
-	node = *head;
-	while (node != NULL && node->next != *head) 
-	{
-		node->index = index++;
-		node = node->next;
-	}
-}
-
-
 void ft_fillcost(t_list **head, t_list *target)
 {
 	int mid;
@@ -387,8 +379,27 @@ void ft_fillcost(t_list **head, t_list *target)
 	if (target->index <= mid)
 		target->cost = target->index;
 	else
-		target->cost = (target->index - (*head)->prev->index + 1);
+		target->cost = (target->index - (*head)->prev->index - 1);
 }
+
+
+void update_indices(t_list **head)
+{
+	t_list *node;
+	int index;
+
+	index = 0;
+	node = *head;
+	while (node) 
+	{	
+		node->index = index;	
+		ft_fillcost(head, node);
+		index++;
+		node = node->next;
+	}
+}
+
+
 void	ft_aoitodo(t_list **ahead, t_list **bhead)
 {
 	t_list *ac;
@@ -405,8 +416,6 @@ void	ft_aoitodo(t_list **ahead, t_list **bhead)
 			if (ac->content - bc->content > 0 && tmp > ac->content - bc->content)
 			{
 				bc->bestfriend = ac;
-				ft_fillcost(bhead, bc);
-				ft_fillcost(ahead, bc->bestfriend);
 				tmp = ac->content - bc->content;
 			}
 			ac = ac->next;
@@ -418,6 +427,10 @@ void	ft_aoitodo(t_list **ahead, t_list **bhead)
 
 int ft_calculatecost(t_list *target)
 {
+	if (target->cost == 0)
+		return (target->bestfriend->cost);
+	if (target->bestfriend->cost == 0)
+		return (target->cost);
 	if (target->bestfriend)
 	{
 		if (target->cost > 0 && target->bestfriend->cost > 0)
@@ -435,37 +448,113 @@ int ft_calculatecost(t_list *target)
 				return (-(target->bestfriend->cost));
 		}
 		else
-			return((target->cost < 0) * -(target->cost) + (target->bestfriend->cost < 0) 
-					* -(target->bestfriend->cost) + (target->cost > 0) * target->cost 
-					+ (target->bestfriend->cost > 0) * target->bestfriend->cost);
+		{
+			return((target->cost < 0) * -(target->cost) + (target->bestfriend->cost < 0) * -(target->bestfriend->cost) + (target->cost > 0) * target->cost + (target->bestfriend->cost > 0) * target->bestfriend->cost);
+		}
 	}
 	return (INT_MAX);
 }
 
-t_list	*ft_findbestpush(t_list **ahead, t_list **bhead)
+t_list *ft_findbestpush(t_list **bhead)
 {
 	t_list *bestnode;
 	t_list *tmp;
-	int cost;
-
-	bestnode = *bhead;
-	cost = 500;
-	tmp = *ahead;
+	int	bestnodecost;
+	int	cost;
+	
+	bestnode = NULL;
+	bestnodecost = INT_MAX;
+	cost = INT_MAX;
 	tmp = *bhead;
 	while (tmp)
 	{
-		cost = ft_calculatecost(tmp);
-		if (tmp->bestfriend && cost < bestnode->cost)
-			bestnode = tmp;
+		if (tmp->bestfriend)
+		{
+			cost = ft_calculatecost(tmp);
+			if (cost < bestnodecost)
+			{
+				bestnode = tmp;
+				bestnodecost = cost;
+			}
+		}
 		tmp = tmp->next;
 	}
 	return (bestnode);
 }
+
 void ft_rr(t_list **ahead, t_list **bhead)
 {
-	ft_rx(ahead, 1);
-	ft_rx(bhead, 0);
+	write(1, "rr\n", 3);
+	ft_rx(ahead, 2);
+	ft_rx(bhead, 2);
 }
+
+void ft_rrr(t_list **ahead, t_list **bhead)
+{
+	write(1, "rrr\n", 4);
+	ft_rrx(ahead, 2);
+	ft_rrx(bhead, 2);
+}
+
+
+void	ft_samerot(t_list **ahead, t_list **bhead, int acost, int bcost)
+{
+	if (acost > 0)
+	{
+		while (acost && bcost)
+		{
+			acost--;
+			bcost--;
+			ft_rr(ahead, bhead);
+		}
+		while (acost)
+		{
+			ft_rx(ahead, 1);
+			acost--;
+		}
+		while (bcost--)
+			ft_rx(bhead, 0);
+	}
+	else
+	{
+		while (acost && bcost)
+		{
+			acost++;
+			bcost++;
+			ft_rrr(ahead, bhead);
+		}
+		while (acost++)
+			ft_rrx(ahead, 1);
+		while (bcost++)
+			ft_rrx(bhead, 0);
+	}
+
+}
+
+void	ft_diffrot(t_list **ahead, t_list **bhead, int acost, int bcost)
+{
+	while (acost > 0)
+	{
+		ft_rx(ahead, 1);
+		acost--;
+	}
+	while (bcost > 0)
+	{
+		ft_rx(bhead, 0);
+		bcost--;
+	}
+	while (acost < 0)
+	{
+		ft_rrx(ahead, 1);
+		acost++;
+	}
+	while (bcost < 0)
+	{
+		ft_rrx(bhead, 0);
+		bcost++;
+	}
+}
+
 void ft_pushtop(t_list **ahead, t_list **bhead, t_list *target)
 {
 	int acost;
@@ -473,50 +562,51 @@ void ft_pushtop(t_list **ahead, t_list **bhead, t_list *target)
 	if (!target)
 		return;
 	acost = target->bestfriend->cost;
-	bcost = target->content;
-	if ((target->cost > 0 && target->bestfriend->cost > 0) || (target->cost))
+	bcost = target->cost;
+
+	if ((acost < 0 && bcost < 0) || (acost > 0 && bcost > 0))
+		ft_samerot(ahead, bhead, acost, bcost);
+	else
+		ft_diffrot(ahead, bhead, acost, bcost);
+	//printf("topa:%d\n, topb:%d\n", (*ahead)->content, (*bhead)->content);
 	ft_px(bhead, ahead, 1);
 }
 t_list	*ft_findsmallest(t_list **bhead)
 {
-    t_list *tmp;
-    t_list *smallest_node;
+	t_list *tmp;
+	t_list *smallest_node;
 
-    tmp = *bhead;
-    smallest_node = tmp;
-    while (tmp)
-    {
-        if (tmp->content < smallest_node->content)
-            smallest_node = tmp;
-        tmp = tmp->next;
-    }
-    return smallest_node;
+	tmp = *bhead;
+	smallest_node = tmp;
+	while (tmp)
+	{
+		if (tmp->content < smallest_node->content)
+			smallest_node = tmp;
+		tmp = tmp->next;
+	}
+	return smallest_node;
 }
 void	ft_returntoa(t_list **ahead, t_list **bhead)
 {
-	t_list *ac;
-	t_list *bc;
 	t_list *node_to_push;
-	int mid;
-	int tmp;
-	
-	tmp = 250;
-	ac = *ahead;
-	bc = *bhead;
-	mid = (*bhead)->prev->index + 1;
+
 	while ((*bhead))
 	{
-		node_to_push = ft_findbestpush(ahead, bhead);
+
+		node_to_push = ft_findbestpush(bhead);
 		if (!node_to_push)
 		{
 			node_to_push = ft_findsmallest(bhead);
 			node_to_push->bestfriend = ft_findsmallest(ahead);
 		}
+		ft_fillcost(bhead, node_to_push);
+		ft_fillcost(ahead, node_to_push->bestfriend);
+		//printf("bestnodea: %d\nbestnodeb:%d\n", node_to_push->bestfriend->content, node_to_push->content);
 		ft_pushtop(ahead, bhead, node_to_push);
 		update_indices(ahead);
-		update_indices(bhead);
+		update_indices(bhead);	
 		ft_aoitodo(ahead, bhead);
-	}		
+	}
 }
 int	ft_issorted(t_list **ahead)
 {
@@ -526,7 +616,7 @@ int	ft_issorted(t_list **ahead)
 	while (tmp->next)
 	{
 		if (tmp->content > tmp->next->content)
-			return (0);
+		return (0);
 		tmp = tmp->next;
 	}
 	return (1);
@@ -558,19 +648,19 @@ void	ft_pushtob(t_list **ahead, t_list **bhead)
 			i++;
 		}
 		else
-			ft_rx(ahead, 1);
+		ft_rx(ahead, 1);
 	}
 	ft_sort3(ahead, (*ahead)->next, (*ahead)->next->next);
+	update_indices(ahead);
 	update_indices(ahead);
 	ft_lezsort(ahead, bhead);
 }
 
 void ft_pushswap(t_list **ahead, t_list **bhead)
 {
-	int i;
 	int nnodes;
+
 	*bhead = NULL;
-	i = 0;
 	nnodes = ft_listcount(*ahead);
 	if (nnodes == 1)
 		exit (1);
@@ -578,9 +668,8 @@ void ft_pushswap(t_list **ahead, t_list **bhead)
 		ft_sort3(ahead, (*ahead)->next, (*ahead)->next->next);
 	else
 		ft_pushtob(ahead, bhead);
-
 }
-int	main(int ac, char *av[])
+/*int	main(int ac, char *av[])
 {
 	char *line;
 	t_list **ahead;
@@ -613,7 +702,8 @@ int	main(int ac, char *av[])
 	}
 	else 
 		write(2, "Error\n", 6);
+
 	free(ahead);
 	free(bhead);
 	return (0);
-}
+}*/
