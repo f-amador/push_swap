@@ -461,7 +461,6 @@ int	main(int ac, char *av[])
 	char *line;
 	t_list **ahead;
 	t_list **bhead;
-	t_list *tmp;
 
 
 		ahead = (t_list **)malloc(sizeof(t_list *));
@@ -485,25 +484,9 @@ int	main(int ac, char *av[])
 					write(2, "Error\n", 6);
 			free(line);
 		}
-		tmp = *ahead;
-		ft_moves(ahead, bhead);
-		t_list *current = *ahead;
-		current = *ahead;
-		do
-		{
-			if (current->content > current->next->content)
-			{
-				ft_clearlst(ahead);
-				free(ahead);
-				free(bhead);
-				return (write(2, "Error\n", 6));
-			}
-			current = current->next;
-		} while (current->next != NULL);
-
 	ft_clearlst(ahead);
 	free(ahead);
-	//free(bhead);
+	free(bhead);
 	return (write(1, "Acertou miseravi\n", 17));
 }
 
