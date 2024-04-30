@@ -47,12 +47,14 @@ long ft_nodesum(t_list **ahead)
 void ft_fillcost(t_list **head, t_list *target)
 {
 	int mid;
+	int total_nodes;
 
-	mid = (((*head)->prev->index + 1) / 2);
-	if (target->index <= mid)
+	total_nodes = (*head)->prev->index + 1;
+	mid = total_nodes / 2;
+	if (target->index <= mid + 1)
 		target->cost = target->index;
 	else
-		target->cost = (target->index - (*head)->prev->index - 1);
+		target->cost = (target->index - total_nodes);
 }
 
 
@@ -66,7 +68,7 @@ void ft_update_indices(t_list **head)
 	while (node) 
 	{	
 		node->index = index;	
-		ft_fillcost(head, node);
+		//ft_fillcost(head, node);
 		index++;
 		node = node->next;
 	}
@@ -76,8 +78,8 @@ void ft_update_indices(t_list **head)
 void	ft_aoitodo(t_list **ahead, t_list **bhead)
 {
 	t_list *ac;
+	long tmp;
 	t_list *bc;
-	long long tmp;
 
 	bc = *bhead;
 	while (bc)
@@ -93,6 +95,8 @@ void	ft_aoitodo(t_list **ahead, t_list **bhead)
 			}
 			ac = ac->next;
 		}
+		if (tmp == 214748364711)
+			bc->bestfriend = ft_findsmallest(ahead);
 		bc = bc->next;
 	}
 }

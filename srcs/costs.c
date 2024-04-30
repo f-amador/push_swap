@@ -1,6 +1,14 @@
 
 #include "../include/push_swap.h"
 
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (-n);
+	else
+		return (n);
+}
+
 int	ft_calculatecost(t_list *target)
 {
 	if (target->bestfriend)
@@ -19,18 +27,15 @@ int	ft_calculatecost(t_list *target)
 			else
 				return (-(target->bestfriend->cost));
 		}
-		return ((target->cost < 0) * -(target->cost)
-			+ (target->bestfriend->cost < 0)
-			* -(target->bestfriend->cost) + (target->cost > 0) * target->cost
-			* + (target->bestfriend->cost > 0) * target->bestfriend->cost);
+		return (ft_abs(target->cost) + ft_abs(target->bestfriend->cost));
 	}
 	return (INT_MAX);
 }
 
-t_list	*ft_findbestpush(t_list **bhead)
+t_list	*ft_findbestpush(t_list **ahead, t_list **bhead)
 {
-	int		bestnodecost;
-	int		cost;
+	long		bestnodecost;
+	long		cost;
 	t_list	*bestnode;
 	t_list	*tmp;
 
@@ -42,13 +47,14 @@ t_list	*ft_findbestpush(t_list **bhead)
 	{
 		if (tmp->bestfriend)
 		{
+			ft_fillcost(ahead, tmp->bestfriend);
+			ft_fillcost(bhead, tmp);
 			cost = ft_calculatecost(tmp);
+			//printf("Bnode:%d Index:%d Cost:%d\nAnode:%d Index:%d Cost:%d\nTotalCost:%ld\n", tmp->content, tmp->index, tmp->cost, tmp->bestfriend->content, tmp->bestfriend->index, tmp->bestfriend->cost, cost);
 			if (cost < bestnodecost)
 			{
 				bestnode = tmp;
 				bestnodecost = cost;
-				if (bestnodecost <= 1)
-					break ;
 			}
 		}
 		tmp = tmp->next;

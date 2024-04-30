@@ -6,7 +6,7 @@ int ft_rx(t_list **ahead, int i)
 	t_list *lastnode;
 
 	if (ahead == NULL || *ahead == NULL || (*ahead)->next == NULL)
-	return 0;
+		return 0;
 	firstnode = *ahead;
 	*ahead = (*ahead)->next;
 	(*ahead)->prev = NULL;

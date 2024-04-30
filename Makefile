@@ -12,11 +12,11 @@
 
 NAME = libpushswap.a
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -Iinclude
+CFLAGS = -Wall -Werror -Wextra -Iinclude -g
 SRC_DIR = srcs
 OBJ_DIR = objs
 OBJBONUS_DIR = bonusobjs
-SRC = push_swap.c
+SRC = costs.c  listutils.c  moves.c  push_swap.c  returntoa.c  sorted.c  sorts.c  superjoin.c
 SRCBONUS = ./srcs/checker.c
 OBJBONUS = $(addprefix $(OBJBONUS_DIR)/, $(SRC:.c=.o))
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
@@ -25,12 +25,12 @@ BONUS = checker
 all: $(PROGRAM)
 
 $(PROGRAM): $(NAME)
-	$(CC) $(CFLAGS) -g $(NAME) -o $(PROGRAM)
+	$(CC) $(CFLAGS) $(NAME) -o $(PROGRAM)
 
 $(NAME): $(OBJ)
 	ar crs $(NAME) $(OBJ)
 
-$(OBJ): $(SRC_DIR)/$(SRC)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
@@ -41,7 +41,7 @@ fclean: clean
 	rm -rf $(NAME)
 	rm -rf $(PROGRAM)
 
-re: fclean all
+re: all fclean
 
 debog: all
 	gdb $(PROGRAM)

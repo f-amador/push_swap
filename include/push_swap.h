@@ -77,7 +77,7 @@ void    ft_returntoa(t_list **ahead, t_list **bhead);
 t_list	*ft_findsmallest(t_list **bhead);
 t_list	*ft_findsmallest(t_list **bhead);
 t_list	*ft_lastnode(t_list **ahead);
-t_list	*ft_findbestpush(t_list **bhead);
+t_list	*ft_findbestpush(t_list **ahead, t_list **bhead);
 
 size_t	ft_strlen(char *s);
 
