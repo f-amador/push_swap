@@ -1,16 +1,16 @@
 #include "../include/push_swap.h"
 
-int ft_rx(t_list **ahead, int i)
+int	ft_rx(t_list **ahead, int i)
 {
 	t_list *firstnode;
 	t_list *lastnode;
 
+	lastnode = (*ahead)->prev;
 	firstnode = *ahead;
 	*ahead = (*ahead)->next;
-	(*ahead)->prev = NULL;
-	lastnode = *ahead->prev;
 	lastnode->next = firstnode;
 	firstnode->prev = lastnode;
+	firstnode->next = NULL;
 	(*ahead)->prev = firstnode;
 	if (i == 1)
 		return (write(1, "ra\n", 3));
@@ -20,12 +20,13 @@ int ft_rx(t_list **ahead, int i)
 		return (0);
 
 }
+
 int	ft_sx(t_list **ahead, int i)
 {
-	t_list *firstnode, *secondnode, *lastnode;
+	t_list *firstnode;
+	t_list *secondnode; 
+	t_list *lastnode;
 
-	if (ahead == NULL || *ahead == NULL || (*ahead)->next == NULL)
-		return (0);
 	firstnode = *ahead;
 	secondnode = (*ahead)->next;
 	lastnode = firstnode->prev; 
@@ -64,7 +65,7 @@ void ft_clearlst(t_list **ahead)
 		free(tmp);
 		tmp = next_node;
 	}
-	//*ahead = NULL;
+	*ahead = NULL;
 }
 
 void	ft_atol(char *line, t_list **ahead)
@@ -80,8 +81,8 @@ void	ft_atol(char *line, t_list **ahead)
 		sig = 1;
 		if (line[i] == 32)
 			i++;
-		if (line[i++] == 45)
-			sig = -1;
+		if (line[i] == 45)
+			sig = line[i++] * 0 - 1;
 		while (line[i] >= '0' && line[i] <= '9')
 			res = res * 10 + line[i++] - '0';
 		if ((res * sig) > INT_MAX || (res * sig) < INT_MIN)
