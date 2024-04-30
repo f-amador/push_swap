@@ -5,18 +5,12 @@ int ft_rx(t_list **ahead, int i)
 	t_list *firstnode;
 	t_list *lastnode;
 
-	if (ahead == NULL || *ahead == NULL || (*ahead)->next == NULL)
-		return 0;
 	firstnode = *ahead;
 	*ahead = (*ahead)->next;
 	(*ahead)->prev = NULL;
-
-	lastnode = *ahead;
-	while (lastnode->next != NULL)
-		lastnode = lastnode->next;
+	lastnode = *ahead->prev;
 	lastnode->next = firstnode;
 	firstnode->prev = lastnode;
-	firstnode->next = NULL;
 	(*ahead)->prev = firstnode;
 	if (i == 1)
 		return (write(1, "ra\n", 3));
@@ -70,7 +64,7 @@ void ft_clearlst(t_list **ahead)
 		free(tmp);
 		tmp = next_node;
 	}
-	*ahead = NULL;
+	//*ahead = NULL;
 }
 
 void	ft_atol(char *line, t_list **ahead)
@@ -86,11 +80,8 @@ void	ft_atol(char *line, t_list **ahead)
 		sig = 1;
 		if (line[i] == 32)
 			i++;
-		if (line[i] == 45)
-		{
+		if (line[i++] == 45)
 			sig = -1;
-			i++;
-		}
 		while (line[i] >= '0' && line[i] <= '9')
 			res = res * 10 + line[i++] - '0';
 		if ((res * sig) > INT_MAX || (res * sig) < INT_MIN)

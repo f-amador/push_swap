@@ -79,6 +79,7 @@ void	ft_aoitodo(t_list **ahead, t_list **bhead)
 {
 	t_list *ac;
 	long tmp;
+	long diff;
 	t_list *bc;
 
 	bc = *bhead;
@@ -88,7 +89,8 @@ void	ft_aoitodo(t_list **ahead, t_list **bhead)
 		ac = *ahead;
 		while (ac)
 		{
-			if (ac->content - bc->content > 0 && tmp > ac->content - bc->content)
+			diff = ac->content - bc->content;
+			if (diff > 0 && diff < tmp)
 			{
 				bc->bestfriend = ac;
 				tmp = ac->content - bc->content;
@@ -100,6 +102,3 @@ void	ft_aoitodo(t_list **ahead, t_list **bhead)
 		bc = bc->next;
 	}
 }
-
-
-

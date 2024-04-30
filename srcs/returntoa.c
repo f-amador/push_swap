@@ -39,7 +39,7 @@ void ft_pushtop(t_list **ahead, t_list **bhead, t_list *target)
 		ft_samerot(ahead, bhead, acost, bcost);
 	else
 		ft_diffrot(ahead, bhead, acost, bcost);
-	//printf("topa:%d    topb:%d\n", (*ahead)->content, (*bhead)->content);
+	//printf("topa:%ld    topb:%ld\n", (*ahead)->content, (*bhead)->content);
 	ft_px(bhead, ahead, 1);
 }
 t_list	*ft_findsmallest(t_list **bhead)
@@ -67,7 +67,7 @@ void	ft_returntoa(t_list **ahead, t_list **bhead)
 		ft_update_indices(ahead);
 		ft_update_indices(bhead);	
 		node_to_push = ft_findbestpush(ahead, bhead);
-		//printf("BESTPUSH:%d\n", node_to_push->content);
+		//printf("BESTPUSH:%ld\n", node_to_push->content);
 		ft_pushtop(ahead, bhead, node_to_push);
 		ft_aoitodo(ahead, bhead);
 	}
@@ -75,12 +75,16 @@ void	ft_returntoa(t_list **ahead, t_list **bhead)
 int	ft_issorted(t_list **ahead)
 {
 	t_list *tmp;
+	long current;
+	long next;
 
 	tmp = *ahead;
 	while (tmp->next)
 	{
-		if (tmp->content > tmp->next->content)
-		return (0);
+		current = tmp->content;
+		next = tmp->next->content;
+		if (current > next)
+			return (0);
 		tmp = tmp->next;
 	}
 	return (1);

@@ -30,7 +30,7 @@
 
 typedef struct s_list
 {
-	int					content;
+	long					content;
 	int					cost;
 	int					index;
 	struct s_list		*bestfriend;
