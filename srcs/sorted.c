@@ -1,9 +1,8 @@
 #include "../include/push_swap.h"
 
-
 void	ft_sort(t_list **ahead)
 {
-	t_list *node_to_push;
+	t_list	*node_to_push;
 
 	node_to_push = ft_findsmallest(ahead);
 	ft_fillcost(ahead, node_to_push);
@@ -16,7 +15,7 @@ void	ft_sort(t_list **ahead)
 		}
 	}
 	else
-	{	
+	{
 		while (node_to_push->cost)
 		{
 			ft_rrx(ahead, 1);
@@ -24,7 +23,6 @@ void	ft_sort(t_list **ahead)
 		}
 	}
 }
-
 
 void	ft_lezsort(t_list **ahead, t_list **bhead)
 {
@@ -35,14 +33,14 @@ void	ft_lezsort(t_list **ahead, t_list **bhead)
 		ft_sort(ahead);
 }
 
-int ft_getmax(t_list **head)
+int	ft_getmax(t_list **head)
 {
-	int max;
-	t_list *tmp;
+	int		max;
+	t_list	*tmp;
 
 	max = (*head)->content;
 	tmp = (*head)->next;
-	while(tmp)
+	while (tmp)
 	{
 		if (tmp->content < max)
 			max = tmp->content;
@@ -51,15 +49,14 @@ int ft_getmax(t_list **head)
 	return (max);
 }
 
-
-int ft_getmin(t_list **head)
+int	ft_getmin(t_list **head)
 {
-	int min;
-	t_list *tmp;
+	int		min;
+	t_list	*tmp;
 
 	min = (*head)->content;
 	tmp = (*head)->next;
-	while(tmp)
+	while (tmp)
 	{
 		if (tmp->content < min)
 			min = tmp->content;
@@ -70,8 +67,8 @@ int ft_getmin(t_list **head)
 
 void	ft_pushtob(t_list **ahead, t_list **bhead)
 {
-	int i;
-	int nnodes;
+	int	i;
+	int	nnodes;
 
 	nnodes = (*ahead)->prev->index + 1;
 	i = 0;
@@ -87,5 +84,3 @@ void	ft_pushtob(t_list **ahead, t_list **bhead)
 	ft_update_indices(bhead);
 	ft_lezsort(ahead, bhead);
 }
-
-

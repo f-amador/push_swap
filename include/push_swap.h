@@ -60,7 +60,7 @@ long	ft_nodesum(t_list **ahead);
 
 void	ft_fillcost(t_list **head, t_list *target);
 void	ft_lezsort(t_list **ahead, t_list **bhead);
-void	ft_clearlst(t_list **ahead);
+void	ft_clearlst(t_list **ahead, char *line);
 void	ft_samerot(t_list **ahead, t_list **bhead, int acost, int bcost);
 void	ft_rrr(t_list **ahead, t_list **bhead);
 void	ft_rr(t_list **ahead, t_list **bhead);
@@ -73,7 +73,7 @@ void	ft_diffrot(t_list **ahead, t_list **bhead, int acost, int bcost);
 void	ft_update_indices(t_list **head);
 void	ft_aoitodo(t_list **ahead, t_list **bhead);
 void    ft_returntoa(t_list **ahead, t_list **bhead);
-
+void	ft_error(t_list **ahead, char *line);
 t_list	*ft_findsmallest(t_list **bhead);
 t_list	*ft_findsmallest(t_list **bhead);
 t_list	*ft_lastnode(t_list **ahead);
@@ -81,6 +81,5 @@ t_list	*ft_findbestpush(t_list **ahead, t_list **bhead);
 
 size_t	ft_strlen(char *s);
 
-void	ft_clearlst(t_list **ahead);
 
 #endif

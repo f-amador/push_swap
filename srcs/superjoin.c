@@ -56,23 +56,26 @@ char	*ft_superjoint(int ac, char *av[])
 int	ft_checker(char *str)
 {
 	int	i;
-	int	n;
 
 	i = 0;
-	n = (str[i] >= '0' && str[i] <= '9');
 	while (str[i])
 	{
 		if (!((str[i] >= '0' && str[i] <= '9') 
-			|| str[i] == 32 || str[i] == 45))
+			|| str[i] == 32 || str[i] == 45 || str[i] == 43))
+			return (0);
+		else if ((str[i] == 45 || str[i] == 43) && (str[i + 1] <= '0' || str[i + 1] >= '9'))
 			return (0);
 		else
 		{
+			if (str[i] == 45 || str[i] == 43)
+				i++;
+			while (str[i] >= '0' && str[i] <= '9')
+				i++;
 			if (str[i] == 32)
-			n++;
-			i++;
+				i++;
 		}
 	}
-	return (n);
+	return (1);
 }
 
 t_list 	*ft_lastnode(t_list	**ahead)

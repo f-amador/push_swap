@@ -1,37 +1,35 @@
-
 #include "../include/push_swap.h"
 
 int	ft_sort3(t_list **ahead, t_list *node2, t_list *node3)
 {
-
 	if ((*ahead)->content > node2->content)
 	{
 		if (node2->content < node3->content)
-		{	
+		{
 			if ((*ahead)->content < node3->content)
 				return (ft_sx(ahead, 1));
-				else
-			return (ft_rx(ahead, 1));
+			else
+				return (ft_rx(ahead, 1));
 		}
-		else 
-		return (ft_sx(ahead, 1), ft_rrx(ahead, 1));
+		else
+			return (ft_sx(ahead, 1), ft_rrx(ahead, 1));
 	}
-	else 
+	else
 	{
 		if (node2->content > node3->content)
 		{
 			if ((*ahead)->content < node3->content)
 				return (ft_sx(ahead, 1), ft_rx(ahead, 1));
-			else 
-			return (ft_rrx(ahead, 1));
+			else
+				return (ft_rrx(ahead, 1));
 		}
 	}
 	return (1);
 }
 
-long ft_nodesum(t_list **ahead)
+long	ft_nodesum(t_list **ahead)
 {
-	long res;
+	long	res;
 	t_list	*current;
 
 	current = *ahead;
@@ -41,13 +39,13 @@ long ft_nodesum(t_list **ahead)
 		res += current->content;
 		current = current->next;
 	}
-	return res;
+	return (res);
 }
 
-void ft_fillcost(t_list **head, t_list *target)
+void	ft_fillcost(t_list **head, t_list *target)
 {
-	int mid;
-	int total_nodes;
+	int	mid;
+	int	total_nodes;
 
 	total_nodes = (*head)->prev->index + 1;
 	mid = total_nodes / 2;
@@ -57,30 +55,27 @@ void ft_fillcost(t_list **head, t_list *target)
 		target->cost = (target->index - total_nodes);
 }
 
-
-void ft_update_indices(t_list **head)
+void	ft_update_indices(t_list **head)
 {
-	t_list *node;
-	int index;
+	t_list	*node;
+	int		index;
 
 	index = 0;
 	node = *head;
-	while (node) 
-	{	
-		node->index = index;	
-		//ft_fillcost(head, node);
+	while (node)
+	{
+		node->index = index;
 		index++;
 		node = node->next;
 	}
 }
 
-
 void	ft_aoitodo(t_list **ahead, t_list **bhead)
 {
-	t_list *ac;
-	long tmp;
-	long diff;
-	t_list *bc;
+	t_list	*ac;
+	long	tmp;
+	long	diff;
+	t_list	*bc;
 
 	bc = *bhead;
 	while (bc)
