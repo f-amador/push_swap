@@ -30,7 +30,7 @@
 
 typedef struct s_list
 {
-	long					content;
+	long				content;
 	int					cost;
 	int					index;
 	struct s_list		*bestfriend;
@@ -41,6 +41,7 @@ typedef struct s_list
 char	*ft_superjoint(int ac, char *av[]);
 char	*ft_strjoin(char *s1, char *s2);
 
+int		ft_abs(int n);
 int		ft_getmax(t_list **head);
 int		ft_listcount(t_list *ahead);
 int		ft_calculatecost(t_list *target);
@@ -60,26 +61,26 @@ long	ft_nodesum(t_list **ahead);
 
 void	ft_fillcost(t_list **head, t_list *target);
 void	ft_lezsort(t_list **ahead, t_list **bhead);
-void	ft_clearlst(t_list **ahead, char *line);
+void	ft_clearlst(t_list **ahead, t_list **bhead, char *line);
 void	ft_samerot(t_list **ahead, t_list **bhead, int acost, int bcost);
+void	ft_samerot2(t_list **ahead, t_list **bhead, int acost, int bcost);
 void	ft_rrr(t_list **ahead, t_list **bhead);
 void	ft_rr(t_list **ahead, t_list **bhead);
 void	ft_stackadd(int res, t_list **ahead);
-void	ft_atol(char *line, t_list **ahead);
+void	ft_atol(char *line, t_list **ahead, t_list**bhead);
 void	ft_pushtob(t_list **ahead, t_list **bhead);
 void	ft_pushswap(t_list **ahead, t_list **bhead);
 void	ft_pushtop(t_list **ahead, t_list **bhead, t_list *target);
 void	ft_diffrot(t_list **ahead, t_list **bhead, int acost, int bcost);
 void	ft_update_indices(t_list **head);
 void	ft_aoitodo(t_list **ahead, t_list **bhead);
-void    ft_returntoa(t_list **ahead, t_list **bhead);
-void	ft_error(t_list **ahead, char *line);
+void	ft_returntoa(t_list **ahead, t_list **bhead);
+void	ft_error(t_list **ahead, t_list **bhead, char *line);
 t_list	*ft_findsmallest(t_list **bhead);
 t_list	*ft_findsmallest(t_list **bhead);
 t_list	*ft_lastnode(t_list **ahead);
 t_list	*ft_findbestpush(t_list **ahead, t_list **bhead);
 
 size_t	ft_strlen(char *s);
-
 
 #endif

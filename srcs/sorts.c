@@ -27,19 +27,11 @@ int	ft_sort3(t_list **ahead, t_list *node2, t_list *node3)
 	return (1);
 }
 
-long	ft_nodesum(t_list **ahead)
+int	ft_abs(int n)
 {
-	long	res;
-	t_list	*current;
-
-	current = *ahead;
-	res = 0;
-	while (current != NULL)
-	{
-		res += current->content;
-		current = current->next;
-	}
-	return (res);
+	if (n < 0)
+		return (-n);
+	return (n);
 }
 
 void	ft_fillcost(t_list **head, t_list *target)
@@ -49,7 +41,7 @@ void	ft_fillcost(t_list **head, t_list *target)
 
 	total_nodes = (*head)->prev->index + 1;
 	mid = total_nodes / 2;
-	if (target->index <= mid + 1)
+	if (target->index < mid + 1)
 		target->cost = target->index;
 	else
 		target->cost = (target->index - total_nodes);

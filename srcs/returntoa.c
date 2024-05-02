@@ -1,7 +1,6 @@
 
 #include "../include/push_swap.h"
 
-
 void	ft_diffrot(t_list **ahead, t_list **bhead, int acost, int bcost)
 {
 	while (acost > 0)
@@ -26,26 +25,26 @@ void	ft_diffrot(t_list **ahead, t_list **bhead, int acost, int bcost)
 	}
 }
 
-void ft_pushtop(t_list **ahead, t_list **bhead, t_list *target)
+void	ft_pushtop(t_list **ahead, t_list **bhead, t_list *target)
 {
-	int acost;
-	int bcost;
+	int	acost;
+	int	bcost;
+
 	if (!target)
-		return;
+		return ;
 	acost = target->bestfriend->cost;
 	bcost = target->cost;
-
 	if ((acost < 0 && bcost < 0) || (acost > 0 && bcost > 0))
 		ft_samerot(ahead, bhead, acost, bcost);
 	else
 		ft_diffrot(ahead, bhead, acost, bcost);
-	//printf("topa:%ld    topb:%ld\n", (*ahead)->content, (*bhead)->content);
 	ft_px(bhead, ahead, 1);
 }
+
 t_list	*ft_findsmallest(t_list **bhead)
 {
-	t_list *tmp;
-	t_list *smallest_node;
+	t_list	*tmp;
+	t_list	*smallest_node;
 
 	tmp = *bhead;
 	smallest_node = tmp;
@@ -55,28 +54,28 @@ t_list	*ft_findsmallest(t_list **bhead)
 			smallest_node = tmp;
 		tmp = tmp->next;
 	}
-	return smallest_node;
+	return (smallest_node);
 }
+
 void	ft_returntoa(t_list **ahead, t_list **bhead)
 {
-	t_list *node_to_push;
+	t_list	*node_to_push;
 
-	while ((*bhead))
+	while (*bhead)
 	{
-
 		ft_update_indices(ahead);
-		ft_update_indices(bhead);	
+		ft_update_indices(bhead);
 		node_to_push = ft_findbestpush(ahead, bhead);
-		//printf("BESTPUSH:%ld\n", node_to_push->content);
 		ft_pushtop(ahead, bhead, node_to_push);
 		ft_aoitodo(ahead, bhead);
 	}
 }
+
 int	ft_issorted(t_list **ahead)
 {
-	t_list *tmp;
-	long current;
-	long next;
+	t_list	*tmp;
+	long	current;
+	long	next;
 
 	tmp = *ahead;
 	while (tmp->next)

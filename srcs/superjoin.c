@@ -33,7 +33,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j] && !(s2[j] == 32 && !s2[j + 1]))
 		str[i++] = s2[j++];
 	str[i] = 0;
-	//if (s1)
 	free(s1);
 	return (str);
 }
@@ -60,10 +59,11 @@ int	ft_checker(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!((str[i] >= '0' && str[i] <= '9') 
-			|| str[i] == 32 || str[i] == 45 || str[i] == 43))
+		if (!((str[i] >= '0' && str[i] <= '9')
+				|| str[i] == 32 || str[i] == 45 || str[i] == 43))
 			return (0);
-		else if ((str[i] == 45 || str[i] == 43) && (str[i + 1] <= '0' || str[i + 1] >= '9'))
+		else if ((str[i] == 45 || str[i] == 43) && (str[i + 1] < '0'
+				|| str[i + 1] > '9'))
 			return (0);
 		else
 		{
@@ -78,7 +78,7 @@ int	ft_checker(char *str)
 	return (1);
 }
 
-t_list 	*ft_lastnode(t_list	**ahead)
+t_list	*ft_lastnode(t_list **ahead)
 {
 	t_list	*node;
 
@@ -89,4 +89,3 @@ t_list 	*ft_lastnode(t_list	**ahead)
 		node = node->next;
 	return (node);
 }
-

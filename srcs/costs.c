@@ -1,14 +1,6 @@
 
 #include "../include/push_swap.h"
 
-int	ft_abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	else
-		return (n);
-}
-
 int	ft_calculatecost(t_list *target)
 {
 	if (target->cost > 0 && target->bestfriend->cost > 0)
@@ -83,23 +75,4 @@ void	ft_samerot2(t_list **ahead, t_list **bhead, int acost, int bcost)
 		ft_rrx(ahead, 1);
 	while (bcost++)
 		ft_rrx(bhead, 0);
-}
-
-void	ft_samerot(t_list **ahead, t_list **bhead, int acost, int bcost)
-{
-	if (acost > 0)
-	{
-		while (acost && bcost)
-		{
-			ft_rr(ahead, bhead);
-			acost--;
-			bcost--;
-		}
-		while (acost--)
-			ft_rx(ahead, 1);
-		while (bcost--)
-			ft_rx(bhead, 0);
-	}
-	else
-		ft_samerot2(ahead, bhead, acost, bcost);
 }

@@ -10,45 +10,42 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libpushswap.a
+NAME = push_swap
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -Iinclude -g
 SRC_DIR = srcs
 OBJ_DIR = objs
 OBJBONUS_DIR = bonusobjs
 SRC = costs.c  listutils.c  moves.c  push_swap.c  returntoa.c  sorted.c  sorts.c  superjoin.c
-SRCBONUS = ./srcs/checker.c
-OBJBONUS = $(addprefix $(OBJBONUS_DIR)/, $(SRC:.c=.o))
+SRCBONUS = checker.c
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
-PROGRAM = push_swap
+OBJBONUS = $(addprefix $(OBJBONUS_DIR)/, $(SRCBONUS:.c=.o))
 BONUS = checker
-all: $(PROGRAM)
 
-$(PROGRAM): $(NAME)
-	$(CC) $(CFLAGS) $(NAME) -o $(PROGRAM)
+all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar crs $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -o $@ -c $<
 
-clean: all
-	rm -rf $(OBJ_DIR)
+clean:
+	rm -rf $(OBJ_DIR) $(OBJBONUS_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
-	rm -rf $(PROGRAM)
+	rm -rf $(NAME) $(BONUS)
 
-re: all fclean
+re: fclean all
 
-debog: all
-	gdb $(PROGRAM)
+bonus: $(BONUS)
 
-bonus:  $(BONUS)
+$(BONUS): $(OBJBONUS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-$(BONUS):
-	$(CC) $(CFLAGS) $(SRCBONUS) -o $(BONUS)
+$(OBJBONUS_DIR)/%.o: $(SRC_DIR)/%.c
+	mkdir -p $(OBJBONUS_DIR)
+	$(CC) $(CFLAGS) -o $@ -c $<
 
-.PHONY: all re clean fclean debog
+.PHONY: all re clean fclean bonus
