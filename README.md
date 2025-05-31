@@ -22,7 +22,7 @@ Push_Swap is a **42 School** project where you sort numbers using two stacks (A 
 
 1. **Clone the repo:**  
    ```bash
-   git clone [your-repo-url]
+   git clone git@github.com:f-amador/push_swap.git
    cd push_swap
    ```
 2. **Compile it:** *(Don’t mess this up!)*  
